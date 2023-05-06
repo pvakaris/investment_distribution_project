@@ -7,7 +7,7 @@
 
 # Additional
 *.iml
-.logs
+logs
 
 # User-specific stuff
 .idea
