@@ -1,8 +1,0 @@
-21:45:15.371 [main] INFO  uk.landbay.Main - The program has started
-21:45:15.389 [main] INFO  services.CSVReader - Reading the investors from file /funded_products_by_funder.csv
-21:45:15.398 [main] INFO  services.Calculator - Information about investors was successfully read.
-21:45:15.398 [main] INFO  services.CSVReader - Reading the customers from file /mortgages_to_be_funded.csv
-21:45:15.400 [main] INFO  services.Calculator - Information about customers was successfully read.
-21:45:15.401 [main] INFO  services.CSVReader - Reading the products from file /products.csv
-21:45:15.402 [main] INFO  services.Calculator - Information about products was successfully read.
-21:45:15.402 [main] INFO  uk.landbay.Main - The program has ended
