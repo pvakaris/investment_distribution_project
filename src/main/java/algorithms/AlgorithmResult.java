@@ -4,34 +4,31 @@ import entities.Investment;
 import entities.Investor;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Queue;
 
 /**
  * The result of the algorithm.
- *
- * @author Vakaris Paulavicius
- * @version 1.0
  */
 public class AlgorithmResult {
-    private final Map<Investor, List<Investment>> allocations;
+    private final Queue<Investor> investors;
     private final List<Investment> unusedInvestments;
 
     /**
      * Creates a new instance of AlgorithmResult.
-     * @param allocation The map of investor allocations.
+     * @param investors The queue of investors.
      * @param unusedInvestments The list of unused investments.
      */
-    public AlgorithmResult(Map<Investor, List<Investment>> allocation, List<Investment> unusedInvestments) {
-        this.allocations = allocation;
+    public AlgorithmResult(Queue<Investor> investors, List<Investment> unusedInvestments) {
+        this.investors = investors;
         this.unusedInvestments = unusedInvestments;
     }
 
     /**
-     * Returns the map of investor allocations.
-     * @return The map of investor allocations.
+     * Returns the queue of investors
+     * @return The queue of investors
      */
-    public Map<Investor, List<Investment>> getAllocations() {
-        return allocations;
+    public Queue<Investor> getInvestors() {
+        return investors;
     }
 
     /**
