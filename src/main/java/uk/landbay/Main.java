@@ -9,9 +9,6 @@ import java.util.Properties;
 
 /**
  * The starting point of the application
- *
- * @author Vakaris Paulavicius
- * @version 1.0
  */
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
