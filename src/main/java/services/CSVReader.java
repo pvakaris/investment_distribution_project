@@ -16,9 +16,6 @@ import java.util.*;
 
 /**
  * A class that handles the CSV input files
- *
- * @author Vakaris Paulavicius
- * @version 1.0
  */
 public class CSVReader {
 
@@ -31,7 +28,7 @@ public class CSVReader {
      * @return a list of Investor objects containing the data from the CSV file
      * @throws IOException if there is an error reading the file
      */
-    public static List<Investor> readInvestors(String filename) throws IOException {
+    public static Queue<Investor> readInvestors(String filename) throws IOException {
         CSVParser parser = readFile(filename);
         // Store references to investors temporarily
         Map<String, Investor> investorsMap = new HashMap<>();
@@ -51,7 +48,7 @@ public class CSVReader {
         }
 
         // Finally return the complete list of investors
-        return new ArrayList<>(investorsMap.values());
+        return new PriorityQueue<>(investorsMap.values());
     }
 
     /**
