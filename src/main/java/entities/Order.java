@@ -2,9 +2,6 @@ package entities;
 
 /**
  * Represents an order placed by a customer.
- *
- * @author Vakaris Paulavicius
- * @version 1.0
  */
 public class Order {
 

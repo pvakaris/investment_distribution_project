@@ -2,9 +2,6 @@ package entities;
 
 /**
  * A partner (both customers and investors) THE SUPERCLASS
- *
- * @author Vakaris Paulavicius
- * @version 1.0
  */
 public class Partner {
     private final String name;
