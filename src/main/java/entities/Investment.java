@@ -2,9 +2,6 @@ package entities;
 
 /**
  * Represents an investment that can be made by an investor
- *
- * @author Vakaris Paulavicius
- * @version 1.0
  */
 public class Investment implements Comparable<Investment> {
 

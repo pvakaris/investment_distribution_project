@@ -5,9 +5,6 @@ import java.util.List;
 
 /**
  * A class representing a customer
- *
- * @author Vakaris Paulavicius
- * @version 1.0
  */
 public class Customer extends Partner {
     // A list that holds all the orders a Customer has

@@ -1,8 +1,9 @@
 package services;
 
-import algorithms.Algorithm;
+import algorithms.AbstractAlgorithm;
 import algorithms.AlgorithmResult;
-import algorithms.GreedyAlgorithm;
+import algorithms.GeneticAlgorithm;
+import algorithms.genetic_algorithm_extra.ChromosomeType;
 import entities.Customer;
 import entities.Investment;
 import entities.Investor;
@@ -11,22 +12,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * The Executor of the calculations. Extracts data from the CSV files, employs an algorithm to do all the hard work,
  * modifies the output and outputs the results.
- *
- * @author Vakaris Paulavicius
- * @version 1.0
  */
 public class Executor {
 
     private static final Logger logger = LoggerFactory.getLogger(Executor.class);
-    private List<Investor> investors = null;
+    private Queue<Investor> investors = null;
     private List<Customer> customers = null;
     private Map<String, Double> productInterest = null;
     private final Properties properties;
@@ -52,7 +47,8 @@ public class Executor {
 
         try {
             // Selecting the strategy
-            Algorithm algorithm = new GreedyAlgorithm();
+            // AbstractAlgorithm algorithm = new GreedyAlgorithm();
+            AbstractAlgorithm algorithm = new GeneticAlgorithm(ChromosomeType.HARD_BOUNDARY, true);
             StringBuilder result = runAlgorithm(algorithm);
 
             // As suggested in the task sheet, the answer is printed out into the terminal
@@ -64,23 +60,23 @@ public class Executor {
             }
         }
         catch (Exception exception) {
-            logger.error("An exception occurred when running the algorithm");
+            logger.error("An exception occurred when running the algorithm", exception);
         }
     }
 
     /**
      * The method that runs the chosen strategy and obtains the result of the execution.
-     * @param algorithm the strategy chosen
+     * @param abstractAlgorithm the strategy chosen
      * @return A StringBuilder containing the result of calculations
      */
-    private StringBuilder runAlgorithm(Algorithm algorithm) {
+    private StringBuilder runAlgorithm(AbstractAlgorithm abstractAlgorithm) {
         List<Investment> investments = getInvestments();
         logger.info("Investments were successfully prepared for the market");
 
         AlgorithmResult algorithmResult = null;
         try {
             // Run the algorithm specified as the strategy
-            algorithmResult = algorithm.run(investors, investments);
+            algorithmResult = abstractAlgorithm.run(investors, investments);
         }
         catch (RuntimeException exception) {
             logger.error("An exception occurred when trying to run the algorithm", exception);
@@ -113,28 +109,25 @@ public class Executor {
     private StringBuilder prepareOutput(AlgorithmResult algorithmResults) {
         StringBuilder builder = new StringBuilder();
 
-        Map<Investor, List<Investment>> allocations = algorithmResults.getAllocations();
-        List<Investment> unusedInvestments = algorithmResults.getUnusedInvestments();
-
-        prepareAllocationOutput(builder, allocations);
-        prepareUnusedInvestmentOutput(builder, unusedInvestments);
+        prepareAllocationOutput(builder, algorithmResults.getInvestors());
+        prepareUnusedInvestmentOutput(builder, algorithmResults.getUnusedInvestments());
         return builder;
     }
 
     /**
      * Prepare information about the allocation of investments
      * @param builder The StringBuilder which to modify
-     * @param allocations The map of investors and their investments
+     * @param investors A queue of investors
      */
-    private void prepareAllocationOutput(StringBuilder builder, Map<Investor, List<Investment>> allocations) {
-        for(Investor investor : allocations.keySet()) {
+    private void prepareAllocationOutput(StringBuilder builder, Queue<Investor> investors) {
+        List<Investor> investorList = new ArrayList<>(investors);
+        Collections.sort(investorList);
+        for(Investor investor : investorList) {
             builder.append(String.format("The investments that were allocated to %s are:\n", investor.getName()));
-            double annualYield = 0;
-            for(Investment investment : allocations.get(investor)) {
-                annualYield += investment.getAnnualYield();
+            for(Investment investment : investor.getInvestments()) {
                 builder.append("  - ").append(investment).append("\n");
             }
-            builder.append(String.format("The total amount of money earned annually is: %f\n\n", annualYield));
+            builder.append(String.format("The total amount of money earned annually is: %f\n\n", investor.getAnnualYield()));
         }
         builder.append("\n");
     }
