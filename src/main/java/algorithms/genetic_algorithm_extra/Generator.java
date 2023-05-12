@@ -1,22 +1,25 @@
 package algorithms.genetic_algorithm_extra;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.*;
 
-// Singleton
 public class Generator {
-    // RESULT
+    // ----- RESULT -----
     private int[] fittestChromosomeGlobal;
     private Double fittestChromosomeFitness;
+    // ----- ------ -----
 
-    private Population population;
+    private static final Logger logger = LoggerFactory.getLogger(Generator.class);
+    private final Population population;
     private AbstractChromosome fittestChromosome;
     private AbstractChromosome secondFittestChromosome;
     private AbstractChromosome offSpringChromosome;
-    private int populationSize;
-    private ChromosomeFactory factory;
+    private final int populationSize;
+    private final ChromosomeFactory factory;
     private final Data data = Data.getInstance();
     private final Random random = new Random();
-    private boolean minimisationAlgorithm;
+    private final boolean minimisationAlgorithm;
 
     /**
      * The constructor
@@ -25,12 +28,15 @@ public class Generator {
      * @param minimisationAlgorithm if this is going to be a minimisation problem or maximisation
      */
     public Generator(int populationSize, ChromosomeType chromosomeType, boolean minimisationAlgorithm){
+        logger.info("Creating a new generator");
         this.populationSize = populationSize;
         factory = new ChromosomeFactory(chromosomeType);
+        logger.info("Creating a new population of " + chromosomeType + ". Population size: " + populationSize);
         population = generateNewPopulation(minimisationAlgorithm);
         this.minimisationAlgorithm = minimisationAlgorithm;
         fittestChromosomeGlobal = null;
         fittestChromosomeFitness = null;
+        logger.info("Successfully created a new generator for a " + (minimisationAlgorithm? "minimisation" : "maximisation") + "problem");
     }
 
     /**
