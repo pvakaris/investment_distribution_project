@@ -77,6 +77,9 @@ comment/uncomment lines 50-51 accordingly.
 When running the GeneticAlgorithm, a verbose explanation of the result can be
 printed into the console by uncommenting line 87 in `src/main/java/algorithms/GeneticAlgorithm.java`.
 
+Similarly, when running the GreedyAlgorithm, a verbose output can be produced by changing the static variable
+debugMode value on line 24 in `sr/main/java/algorithms/GreedyAlgorithm.java`.
+
 ---
 
 Author: **Vakaris Paulavičius**
