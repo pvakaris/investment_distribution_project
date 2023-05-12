@@ -21,6 +21,7 @@ import java.util.*;
 public class GreedyAlgorithm implements AbstractAlgorithm {
 
     private static final Logger logger = LoggerFactory.getLogger(GreedyAlgorithm.class);
+    private static final boolean debugMode = false;
 
     /**
      * The method that does the greedy search for a solution
@@ -35,22 +36,26 @@ public class GreedyAlgorithm implements AbstractAlgorithm {
         List<Investment> unusedInvestments = new LinkedList<>();
 
         // Sort investments by the amount of money they require (the most expensive at the beginning)
-        Arrays.sort(investments.toArray(new Investment[0]), Collections.reverseOrder());
-
+        Collections.sort(investments);
+        if(debugMode) printInvestments(investments);
         // For each investment find an investor
         for (Investment investment : investments) {
             boolean assigned = false;
+            if(debugMode) printInvestors(investors);
             Stack<Investor> tempInvestorStack = new Stack<>();
             while (!investors.isEmpty()) {
                 Investor investor = investors.poll();
+                if(debugMode) System.out.println("Considering investor " + investor.getName());
                 tempInvestorStack.push(investor);
                 if (investor.getWishlist().contains(investment.getProductID())) {
                     // Add investment to the investor's portfolio and remove from the wishlist
                     investor.removeWish(investment.getProductID());
                     investor.addInvestment(investment);
                     assigned = true;
+                    if(debugMode) System.out.println("The investor wanted the investment with annual interest: " + investment.getAnnualYield());
                     break;
                 }
+                if(debugMode) System.out.println("The investor did not want the investment");
             }
             if (!assigned) unusedInvestments.add(investment);
             while(!tempInvestorStack.isEmpty()) {
@@ -59,6 +64,30 @@ public class GreedyAlgorithm implements AbstractAlgorithm {
         }
         logger.info("The greedy algorithm has finished. Returning the result.");
         return new AlgorithmResult(investors, unusedInvestments);
+    }
+
+    // ===================   USED FOR DEBUGGING   ===================
+
+    /**
+     * Used to print the list of investments
+     * @param investments Investments to print
+     */
+    private void printInvestments(List<Investment> investments) {
+        for(Investment inv: investments) {
+            System.out.println(inv);
+        }
+    }
+
+    /**
+     * Used to print the queue of investors
+     * @param investors Investments to print
+     */
+    private void printInvestors(Queue<Investor> investors) {
+        System.out.println();
+        for(Investor inv: investors) {
+            System.out.println(inv.getName() + " --> " + inv.getAnnualYield());
+        }
+        System.out.println("\n");
     }
 
 }
