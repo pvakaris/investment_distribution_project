@@ -3,6 +3,7 @@
 This is a solution for the Landbay assignment.
 
 ---
+
 ## Algorithms
 
 Two different strategies were implemented for solving this problem. The greedy approach and the one that uses a genetic algorithm
@@ -11,7 +12,9 @@ global optimal solution. Additionally, it is only good for this problem.
 
 On the other hand, the genetic algorithm is more flexible as depending on the ChromosomeType used, it can solve different problems.
 However, in this early stage, it fails to find valid solutions. Improvements to it need to be made.
+
 ---
+
 ### GreedyAlgorithm
 
 Assumptions made:
@@ -20,7 +23,9 @@ Assumptions made:
 
 Investments sorted by the amount of money needed. For each investment, the algorithm looks for an investor. It first starts from the investors,
 that currently hold the smallest annual income from interest.
+
  ---
+
 ### Genetic algorithm
 
 The algorithm implements a genetic algorithm, that depending on the AbstractChromosome implementation used, tries to find the optimal solution to the problem.
@@ -46,12 +51,15 @@ could find the perfect distribution of investments so that each investor earns t
 
 Various different AbstractChromosome implementations can exist depending on the problem. The only thing that would have to be changed is what
 parameters are passed into the GeneticAlgorithm.
+
 ---
+
 ## Execution
 
 This part contains information about running the application and observing the results.
 
 ---
+
 ### Cloning and running using Maven
 
 1. Clone the repository
@@ -64,6 +72,7 @@ This part contains information about running the application and observing the r
 8. *OPTIONAL* Run tests using ```mvn test```
 
 ---
+
 ### Making changes
 
 In order to change what algorithm implementation is used, please go to file `src/main/java/services/Executor.java` and 
@@ -73,6 +82,7 @@ When running the GeneticAlgorithm, a verbose explanation of the result can be
 printed into the console by uncommenting line 87 in `src/main/java/algorithms/GeneticAlgorithm.java`.
 
 ---
+
 Author: **Vakaris Paulavičius**
 
 Version: **1.2**
