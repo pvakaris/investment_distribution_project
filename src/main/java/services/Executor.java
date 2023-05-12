@@ -3,6 +3,7 @@ package services;
 import algorithms.AbstractAlgorithm;
 import algorithms.AlgorithmResult;
 import algorithms.GeneticAlgorithm;
+import algorithms.GreedyAlgorithm;
 import algorithms.genetic_algorithm_extra.ChromosomeType;
 import entities.Customer;
 import entities.Investment;
@@ -47,8 +48,8 @@ public class Executor {
 
         try {
             // Selecting the strategy
-            // AbstractAlgorithm algorithm = new GreedyAlgorithm();
-            AbstractAlgorithm algorithm = new GeneticAlgorithm(ChromosomeType.HARD_BOUNDARY, true);
+            AbstractAlgorithm algorithm = new GreedyAlgorithm();
+            //AbstractAlgorithm algorithm = new GeneticAlgorithm(ChromosomeType.HARD_BOUNDARY, true);
             StringBuilder result = runAlgorithm(algorithm);
 
             // As suggested in the task sheet, the answer is printed out into the terminal

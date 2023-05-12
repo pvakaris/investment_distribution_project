@@ -19,7 +19,7 @@ public class TestHardBoundaryChromosome {
     private static int[] slots;
 
     @BeforeAll
-    static void setUp() {
+    public static void setUp() {
         // Initialize the test data
         investorMap = initialiseInvestorMap();
         investmentMap = initialiseInvestmentMap();
@@ -27,7 +27,7 @@ public class TestHardBoundaryChromosome {
     }
 
     @Test
-    void testCalcFitness() {
+    public void testCalcFitness() {
         // Create a chromosome using the constructor with all arguments
         HardBoundaryChromosome chromosome = new HardBoundaryChromosome(investorMap, investmentMap, slots);
 

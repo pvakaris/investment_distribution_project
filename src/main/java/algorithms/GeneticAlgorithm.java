@@ -39,7 +39,7 @@ public class GeneticAlgorithm implements AbstractAlgorithm {
      */
     @Override
     public AlgorithmResult run(Queue<Investor> investors, List<Investment> investments) throws RuntimeException{
-        logger.info("The evolutionary algorithm has started");
+        logger.info("The genetic algorithm has started");
 
         int generationCount = 0;
         // Save investors and investments to a singleton data structure for global access
@@ -50,7 +50,7 @@ public class GeneticAlgorithm implements AbstractAlgorithm {
         generator.getPopulation().calculateAllFitness();
 
         while (generationCount < maxGenerations || generator.getFittestChromosomeAllocations() == null) {
-            System.out.println(generationCount);
+            logger.info("Performing operations of generation " + generationCount);
             generationCount++;
             // Perform selection
             generator.selection();
@@ -65,9 +65,10 @@ public class GeneticAlgorithm implements AbstractAlgorithm {
         }
 
         // Once the algorithm is finished, get the fittest child from the population, process it and return it
-        logger.info("The evolutionary algorithm has run for " + generationCount + " times.");
-        logger.info("The greedy algorithm has finished. Returning the result.");
-        return processResults(generator.getFittestChromosomeAllocations(), generator.getFittestChromosomeFitness());
+        logger.info("The genetic algorithm has run for " + generationCount + " times. It is now finished");
+        AlgorithmResult result = processResults(generator.getFittestChromosomeAllocations(), generator.getFittestChromosomeFitness());
+        logger.info("Returning the results");
+        return result;
     }
 
     /**
@@ -77,11 +78,14 @@ public class GeneticAlgorithm implements AbstractAlgorithm {
      * @return AlgorithmResult for representation
      */
     private AlgorithmResult processResults(int[] slots, double fitness) {
+        logger.info("Processing the results");
         Data data = Data.getInstance();
         Map<Integer, Investor> investorMap = data.getInvestorMap();
         Map<Integer, Investment> investmentMap = data.getInvestmentMap();
+
         // This can be uncommented to get a better explanation of the results
-        printExplanation(slots, fitness, investorMap, investmentMap);
+        // printExplanation(slots, fitness, investorMap, investmentMap);
+
         List<Investment> unused = new ArrayList<>();
         for(int i = 0; i < slots.length; i++) {
             if(slots[i] == -1) {
@@ -95,6 +99,7 @@ public class GeneticAlgorithm implements AbstractAlgorithm {
         for(Integer i : investorMap.keySet()) {
             investors.add(investorMap.get(i));
         }
+        logger.info("Results were successfully processed");
         return new AlgorithmResult(investors, unused);
     }
 
@@ -105,6 +110,7 @@ public class GeneticAlgorithm implements AbstractAlgorithm {
      */
     private void initialiseData(Queue<Investor> investors, List<Investment> investments){
         // Two maps with constant IDs. The internals of both maps never change during the execution of the algorithm
+        logger.info("Initialising a Data singleton that will hold investor and investment maps");
         Map<Integer, Investment> investmentMap = new HashMap<>();
         Map<Integer, Investor> investorMap = new HashMap<>();
 
@@ -119,6 +125,7 @@ public class GeneticAlgorithm implements AbstractAlgorithm {
 
         Data data = Data.getInstance();
         data.initialise(investorMap, investmentMap);
+        logger.info("The Data singleton ahs been successfully initialised");
     }
 
     /**
@@ -129,6 +136,7 @@ public class GeneticAlgorithm implements AbstractAlgorithm {
      * @param investments The investments ---> Investment
      */
     private void printExplanation(int[] slots, double fitness, Map<Integer, Investor> investors, Map<Integer, Investment> investments) {
+        logger.info("Printing an elaborate explanation");
         System.out.println("The fitness of this allocation is: " + fitness);
         System.out.println(Arrays.toString(slots));
         System.out.println("INVESTORS:");
