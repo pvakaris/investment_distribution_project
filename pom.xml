@@ -6,7 +6,7 @@
 
     <groupId>uk.landbay</groupId>
     <artifactId>LandbayChallenge</artifactId>
-    <version>1.0</version>
+    <version>1.2</version>
 
     <dependencies>
         <!--   For work with CSV files   -->
