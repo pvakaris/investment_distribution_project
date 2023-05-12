@@ -13,8 +13,6 @@ global optimal solution. Additionally, it is only good for this problem.
 On the other hand, the genetic algorithm is more flexible as depending on the ChromosomeType used, it can solve different problems.
 However, in this early stage, it fails to find valid solutions. Improvements to it need to be made.
 
----
-
 ### GreedyAlgorithm
 
 Assumptions made:
@@ -57,8 +55,6 @@ parameters are passed into the GeneticAlgorithm.
 ## Execution
 
 This part contains information about running the application and observing the results.
-
----
 
 ### Cloning and running using Maven
 
